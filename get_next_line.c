@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:01:16 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/01/28 19:20:43 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:32:17 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	*read_line(int fd, char *pending_text)
 	return (pending_text);
 }
 
-char	*get_next_line(int fd){
+char	*get_next_line(int fd)
+{
 	char		*line;
 	static char	*pending_text;
 

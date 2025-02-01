@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 09:26:40 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/02/01 09:36:36 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/02/01 13:21:41 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-// void	*ft_calloc(size_t num, size_t size);
 char	*get_next_line(int fd);
-// char	*read_line(int fd, char *pending_text);
-
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(const char *s);
+void	*ft_memmove(void *dest, const void *src, size_t length);
+void	*ft_memcpy(void *dest, const void *src, size_t length);
 # endif

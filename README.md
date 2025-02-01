@@ -42,17 +42,20 @@ Owner
 Permissions
 Disk location
 
-## Testing
+#### 🌐 More info
+[https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/]
+
+## 🧪✅ Testing
 
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=4 get_next_line.c get_next_line_utils.c main_test.c
 
-## gdb
+## 🐞🔍 gdb
 gdb ./a.out
+
 (gdb) run
+
 (gdb) backtrace
 
-#### 🌐 More info
-[https://www.geeksforgeeks.org/input-output-system-calls-c-create-open-close-read-write/]
 
 
 ##  🤝Contributions

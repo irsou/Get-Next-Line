@@ -56,6 +56,7 @@ cc -Wall -Wextra -Werror -D BUFFER_SIZE=4 get_next_line.c get_next_line_utils.c 
 gdb ./a.out
 
 (gdb) break ft_strjoin
+
 (gdb) run
 
 (gdb) backtrace

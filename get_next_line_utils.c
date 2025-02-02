@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:03:26 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/02/02 13:52:34 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:22:54 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ size_t	ft_strlen(const char *str)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
-	size_t	i;
-	size_t	c;
+	size_t	pos_s1;
+	size_t	pos_s2;
 
 	if (!s1)
 	{
@@ -58,13 +58,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	str = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
 		return (free(s1), NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	c = -1;
-	while (s2[++c])
-		str[i + c] = s2[c];
-	str[i + c] = '\0';
+	pos_s1 = -1;
+	while (s1[++pos_s1])
+		str[pos_s1] = s1[pos_s1];
+	pos_s2 = -1;
+	while (s2[++pos_s2])
+		str[pos_s1 + pos_s2] = s2[pos_s2];
+	str[pos_s1 + pos_s2] = '\0';
 	free(s1);
 	return (str);
 }

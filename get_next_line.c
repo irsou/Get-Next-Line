@@ -6,27 +6,22 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:01:16 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/02/02 13:52:26 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:19:53 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*read_to_storage(int fd, char *storage)
+static char	*read_and_join(int fd, char *storage, char *buffer)
 {
-	char	*buffer;
 	int		bytes_read;
 
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
 	bytes_read = 1;
 	while ((!storage || !ft_strchr(storage, '\n')) && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
 		{
-			free(buffer);
 			free(storage);
 			return (NULL);
 		}
@@ -35,69 +30,79 @@ static char	*read_to_storage(int fd, char *storage)
 			storage = ft_strjoin(storage, buffer);
 		if (!storage)
 		{
-			free(buffer);
 			return (NULL);
 		}
 	}
+	return (storage);
+}
+
+static char	*read_to_storage(int fd, char *storage)
+{
+	char	*buffer;
+
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	storage = read_and_join(fd, storage, buffer);
 	free(buffer);
 	return (storage);
 }
 
-static char	*extract_line(char *storage)
+static char	*get_line(char *storage)
 {
 	char	*line;
-	int		i;
+	int		pos;
 
-	i = 0;
-	if (!storage[i])
+	pos = 0;
+	if (!storage[pos])
 		return (NULL);
-	while (storage[i] && storage[i] != '\n')
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 2));
+	while (storage[pos] && storage[pos] != '\n')
+		pos++;
+	line = (char *)malloc(sizeof(char) * (pos + 2));
 	if (!line)
 		return (NULL);
-	i = 0;
-	while (storage[i] && storage[i] != '\n')
+	pos = 0;
+	while (storage[pos] && storage[pos] != '\n')
 	{
-		line[i] = storage[i];
-		i++;
+		line[pos] = storage[pos];
+		pos++;
 	}
-	if (storage[i] == '\n')
+	if (storage[pos] == '\n')
 	{
-		line[i] = storage[i];
-		i++;
+		line[pos] = storage[pos];
+		pos++;
 	}
-	line[i] = '\0';
+	line[pos] = '\0';
 	return (line);
 }
 
 static char	*update_storage(char *storage)
 {
-	char	*new_storage;
-	int		i;
-	int		j;
+	char	*new_sto;
+	int		pos_s;
+	int		pos_new;
 
-	i = 0;
-	while (storage[i] && storage[i] != '\n')
-		i++;
-	if (!storage[i])
+	pos_s = 0;
+	while (storage[pos_s] && storage[pos_s] != '\n')
+		pos_s++;
+	if (!storage[pos_s])
 	{
 		free(storage);
 		return (NULL);
 	}
-	new_storage = (char *)malloc(sizeof(char) * (ft_strlen(storage) - i + 1));
-	if (!new_storage)
+	new_sto = (char *)malloc(sizeof(char) * (ft_strlen(storage) - pos_s + 1));
+	if (!new_sto)
 	{
 		free(storage);
 		return (NULL);
 	}
-	i++;
-	j = 0;
-	while (storage[i])
-		new_storage[j++] = storage[i++];
-	new_storage[j] = '\0';
+	pos_s++;
+	pos_new = 0;
+	while (storage[pos_s])
+		new_sto[pos_new++] = storage[pos_s++];
+	new_sto[pos_new] = '\0';
 	free(storage);
-	return (new_storage);
+	return (new_sto);
 }
 
 char	*get_next_line(int fd)
@@ -110,7 +115,7 @@ char	*get_next_line(int fd)
 	storage = read_to_storage(fd, storage);
 	if (!storage)
 		return (NULL);
-	line = extract_line(storage);
+	line = get_line(storage);
 	storage = update_storage(storage);
 	return (line);
 }

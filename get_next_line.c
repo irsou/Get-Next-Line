@@ -6,47 +6,41 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 18:01:16 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/02/01 20:18:48 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/02/02 09:56:17 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-
 static char	*read_to_storage(int fd, char *storage)
 {
-    char    *buffer;
-    int     bytes_read;
+	char	*buffer;
+	int		bytes_read;
 
-    buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    if (!buffer)
-        return (NULL);
-    bytes_read = 1;
-    
-    while ((!storage || !ft_strchr(storage, '\n')) && bytes_read > 0)
-    {
-        bytes_read = read(fd, buffer, BUFFER_SIZE);
-        if (bytes_read == -1)
-        {
-            free(buffer);
-            free(storage);
-            return (NULL);
-        }
-        buffer[bytes_read] = '\0';
-        
-        if (bytes_read > 0)
-        {
-            storage = ft_strjoin(storage, buffer);
-        }
-        
-        if (!storage)
-        {
-            free(buffer);
-            return (NULL);
-        }
-    }
-    free(buffer);
-    return (storage);
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	bytes_read = 1;
+	while ((!storage || !ft_strchr(storage, '\n')) && bytes_read > 0)
+	{
+		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		if (bytes_read == -1)
+		{
+			free(buffer);
+			free(storage);
+			return (NULL);
+		}
+		buffer[bytes_read] = '\0';
+		if (bytes_read > 0)
+			storage = ft_strjoin(storage, buffer);
+		if (!storage)
+		{
+			free(buffer);
+			return (NULL);
+		}
+	}
+	free(buffer);
+	return (storage);
 }
 
 static char	*extract_line(char *storage)
@@ -63,7 +57,6 @@ static char	*extract_line(char *storage)
 	if (!line)
 		return (NULL);
 	i = 0;
-
 	while (storage[i] && storage[i] != '\n')
 	{
 		line[i] = storage[i];
@@ -71,15 +64,14 @@ static char	*extract_line(char *storage)
 	}
 	if (storage[i] == '\n')
 	{
-			line[i] = storage[i];
-			i++;
+		line[i] = storage[i];
+		i++;
 	}
 	line[i] = '\0';
 	return (line);
-
 }
 
-static char *update_storage(char *storage)
+static char	*update_storage(char *storage)
 {
 	char	*new_storage;
 	int		i;
@@ -113,11 +105,10 @@ char	*get_next_line(int fd)
 	static char	*storage;
 	char		*line;
 
-	if(fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-
 	storage = read_to_storage(fd, storage);
-	if(!storage)
+	if (!storage)
 		return (NULL);
 	line = extract_line(storage);
 	storage = update_storage(storage);

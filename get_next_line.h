@@ -6,7 +6,7 @@
 /*   By: isousa-s <isousa-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/01 09:26:40 by isousa-s          #+#    #+#             */
-/*   Updated: 2025/02/01 13:21:41 by isousa-s         ###   ########.fr       */
+/*   Updated: 2025/02/02 10:34:29 by isousa-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,5 @@ char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);
 void	*ft_memmove(void *dest, const void *src, size_t length);
 void	*ft_memcpy(void *dest, const void *src, size_t length);
-# endif
+
+#endif

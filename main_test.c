@@ -17,48 +17,68 @@
 int main(void)
 {
     int     fd;
-    char    *line;
+    char    *text;
     int     test_number = 1;
 
-	// Test 1: Archivo normal con varias líneas
+    // Test 1: Archivo normal con varias líneas
     printf("\n=== Test %d: Archivo normal ===\n", test_number++);
     fd = open("test1.txt", O_RDONLY);
-    while ((line = get_next_line(fd)) != NULL)
+    while ((text = get_next_line(fd)) != NULL)
     {
-        printf("Línea leída: [%s]\n", line);
-        free(line);
+        printf("Línea leída: [%s]\n", text);
+        free(text);
     }
     close(fd);
 
     // Test 2: Archivo de una sola línea sin \n
     printf("\n=== Test %d: Una línea sin \\n ===\n", test_number++);
     fd = open("test2.txt", O_RDONLY);
-    while ((line = get_next_line(fd)) != NULL)
+    while ((text = get_next_line(fd)) != NULL)
     {
-        printf("Línea leída: [%s]\n", line);
-        free(line);
+        printf("Línea leída: [%s]\n", text);
+        free(text);
     }
     close(fd);
 
-	// Test 3: Archivo vacío
+    // Test 3: Archivo vacío
     printf("\n=== Test %d: Archivo vacío ===\n", test_number++);
     fd = open("test3.txt", O_RDONLY);
-    line = get_next_line(fd);
-    if (line == NULL)
+    text = get_next_line(fd);
+    if (text == NULL)
         printf("Correcto: devuelve NULL para archivo vacío\n");
     else
         printf("Error: debería devolver NULL\n");
-    free(line);
+    free(text);
     close(fd);
 
-	// Test 4: fd inválido
+    // Test 4: fd inválido
     printf("\n=== Test %d: fd inválido ===\n", test_number++);
-    line = get_next_line(-1);
-    if (line == NULL)
+    text = get_next_line(-1);
+    if (text == NULL)
         printf("Correcto: devuelve NULL para fd inválido\n");
     else
         printf("Error: debería devolver NULL\n");
-    free(line);
+    free(text);
 
-  	return (0);
+    // Test 5: Big line sin newline
+
+	printf("\n=== Test %d: BigLine sin salto ===\n", test_number++);
+    fd = open("test5.txt", O_RDONLY);
+    while ((text = get_next_line(fd)) != NULL)
+    {
+        printf("Línea leída: [%s]\n", text);
+        free(text);
+    }
+    close(fd);
+
+    // Test 6: Big line con newline
+    printf("\n=== Test %d: BigLine con salto ===\n", test_number++);
+    fd = open("test6.txt", O_RDONLY);
+    while ((text = get_next_line(fd)) != NULL)
+    {
+        printf("Línea leída: [%s]\n", text);
+        free(text);
+    }
+    close(fd);
+    return (0);
 }

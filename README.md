@@ -61,7 +61,10 @@ gdb ./a.out
 
 (gdb) backtrace
 
-
+Un BUFFER_SIZE grande (> 1024).
+Un BUFFER_SIZE pequeño (< 8, y 1).
+Un BUFFER_SIZE de exactamente el tamaño de la línea leída.
+Una varianza de uno (+/-) byte entre el tamaño de la línea y el BUFFER_SIZE
 
 ##  🤝Contributions
 Contributions are welcome! Open an issue or submit a pull request to suggest improvements or fixes.

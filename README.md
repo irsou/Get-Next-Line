@@ -48,6 +48,7 @@ Disk location
 ## 🧪✅ Testing
 
 cc -Wall -Wextra -Werror -D BUFFER_SIZE=4 get_next_line.c get_next_line_utils.c main_test.c
+valgrind --leak-check=full ./a.out
 
 #### 📝 Other test
 [https://github.com/Tripouille/gnlTester]

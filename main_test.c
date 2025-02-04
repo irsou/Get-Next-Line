@@ -77,3 +77,18 @@ int	main(void)
 	close(fd);
 	return (0);
 }
+
+/*#include <stdio.h>
+int main(void)
+{
+	char *str;
+	while (1)
+	{
+		str = get_next_line(STDIN_FILENO);
+		if (str == NULL)
+			break;
+		printf("%s\n", str);
+		free(str);
+	}
+	return (0);
+}*/
